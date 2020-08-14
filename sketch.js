@@ -79,3 +79,9 @@ Body.setPosition(bird.body, {x:mouseX, y:mouseY})
 function mouseReleased(){
 sling.fly()
 }
+
+function keyPressed(){
+    if(keyCode == 32){
+        sling.attach(bird.body);
+    }
+}

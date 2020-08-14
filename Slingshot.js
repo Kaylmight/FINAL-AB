@@ -24,7 +24,7 @@ this.sling = Constraint.create(options);
      var posB = this.point2;
      push();
      stroke("#301608")
-     if(posA.x<220){
+     if(posA.x<240){
         strokeWeight(10)
         line(posA.x-25, posA.y, posB.x-10, posB.y);
         line(posA.x-25, posA.y, posB.x+30, posB.y);
@@ -45,4 +45,9 @@ this.sling = Constraint.create(options);
      this.sling.bodyA = null
  
 }
+attach(body){
+    this.sling.bodyA = body
 }
+}
+
+
