@@ -7,9 +7,10 @@ const Body = Matter.Body
 var engine, world;
 var box1, pig1;
 var backgroundImage
+var bg = 'sprites/bg.png'
 
 function preload(){
-   backgroundImage = loadImage('sprites/bg.png') 
+   getBackgroundImg();
 }
 
 function setup(){
@@ -44,7 +45,8 @@ function setup(){
 }
 
 function draw(){
-    background(backgroundImage);
+    if(backgroundImage)
+        background(backgroundImage);
     Engine.update(engine);
     console.log(box2.body.position.x);
     console.log(box2.body.position.y);
@@ -85,3 +87,19 @@ function keyPressed(){
         sling.attach(bird.body);
     }
 }
+
+async function getBackgroundImg(){
+var response  = await fetch("https://worldtimeapi.org/api/timezone/Asia/Kolkata")
+
+var resJSON = await response.json()
+var dateTime = resJSON.datetime;
+var time = dateTime.slice(11, 13) 
+
+if(time>=6 && time<=18){
+    bg = 'sprites/bg.png' 
+}
+else{
+    bg = "sprites/bg2.jpg "
+}
+backgroundImage = loadImage(bg)
+} 
