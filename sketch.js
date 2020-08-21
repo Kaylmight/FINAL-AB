@@ -8,6 +8,9 @@ var engine, world;
 var box1, pig1;
 var backgroundImage
 var bg = 'sprites/bg.png'
+var score = 0;
+var gameState = 'onSling';
+
 
 function preload(){
    getBackgroundImg();
@@ -47,19 +50,21 @@ function setup(){
 function draw(){
     if(backgroundImage)
         background(backgroundImage);
+    fill(255)
+    textSize(40)
+    text('ScOrE = '+score, 900, 30)
     Engine.update(engine);
-    console.log(box2.body.position.x);
-    console.log(box2.body.position.y);
-    console.log(box2.body.angle);
     box1.display();
     box2.display();
     ground.display();
     pig1.display();
+    pig1.score();
     log1.display();
 
     box3.display();
     box4.display();
     pig3.display();
+    pig3.score();
     log3.display();
 
     box5.display();
@@ -75,16 +80,22 @@ function draw(){
 }
 
 function mouseDragged(){
-Body.setPosition(bird.body, {x:mouseX, y:mouseY})
+    if(gameState != "launched"){
+        Body.setPosition(bird.body, {x:mouseX, y:mouseY})
+    }
 }
 
 function mouseReleased(){
-sling.fly()
+    sling.fly()
+    gameState = "launched"
 }
 
 function keyPressed(){
     if(keyCode == 32){
+        bird.trajectory = [];
+        Body.setPosition(bird.body, {x:220, y:50})
         sling.attach(bird.body);
+        gameState = "onSling"
     }
 }
 
